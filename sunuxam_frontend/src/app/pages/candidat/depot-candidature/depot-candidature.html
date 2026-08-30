@@ -1,0 +1,23 @@
+<h2>Déposer ma candidature</h2>
+
+<form (ngSubmit)="onSubmit()">
+  <div>
+    <label>CV (PDF)</label>
+    <input type="file" (change)="onFileChange($event, 'cv')" accept=".pdf">
+  </div>
+
+  <div>
+    <label>Photo</label>
+    <input type="file" (change)="onFileChange($event, 'photo')" accept="image/*">
+  </div>
+
+  <div>
+    <label>Diplôme</label>
+    <input type="file" (change)="onFileChange($event, 'diplome')" accept=".pdf,image/*">
+  </div>
+
+  <p *ngIf="message" style="color: green">{{ message }}</p>
+  <p *ngIf="erreur" style="color: red">{{ erreur }}</p>
+
+  <button type="submit">Envoyer ma candidature</button>
+</form>

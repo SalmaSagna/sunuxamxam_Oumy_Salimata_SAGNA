@@ -1,0 +1,11 @@
+<h2>Concours ouverts</h2>
+
+<div class="liste-concours">
+  <div class="carte-concours" *ngFor="let c of concoursListe">
+    <h3>{{ c.titre }}</h3>
+    <p>{{ c.description }}</p>
+    <p><strong>Date limite :</strong> {{ c.dateLimite }}</p>
+    <p><strong>Délibération :</strong> {{ c.dateDeliberation }}</p>
+    <button [routerLink]="['/concours', c.id, 'postuler']">Postuler</button>
+  </div>
+</div>

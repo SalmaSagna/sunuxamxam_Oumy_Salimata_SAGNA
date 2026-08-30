@@ -1,0 +1,75 @@
+<h2>Gestion des concours</h2>
+
+<div class="bouton-ajouter">
+  <button (click)="ouvrirFormulaire()">+ Ajouter un concours</button>
+</div>
+
+<div class="overlay" *ngIf="formulaireOuvert" (click)="fermerFormulaire()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <h3>Nouveau concours</h3>
+
+    <form (ngSubmit)="onSubmit()">
+      <div>
+        <label>Titre</label>
+        <input type="text" [(ngModel)]="titre" name="titre" required>
+      </div>
+
+      <div>
+        <label>Description</label>
+        <input type="text" [(ngModel)]="description" name="description" required>
+      </div>
+
+      <div>
+        <label>Date limite</label>
+        <input type="date" [(ngModel)]="dateLimite" name="dateLimite" required>
+      </div>
+
+      <div>
+        <label>Date délibération</label>
+        <input type="date" [(ngModel)]="dateDeliberation" name="dateDeliberation" required>
+      </div>
+
+      <p *ngIf="erreurDate" style="color: red">{{ erreurDate }}</p>
+
+      <div class="actions">
+        <button type="button" (click)="fermerFormulaire()" class="btn-annuler">Annuler</button>
+        <button type="submit" class="btn-enregistrer">Enregistrer</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="liste-concours">
+  <div class="carte-concours" *ngFor="let c of concoursListe">
+    <h4>{{ c.titre }}</h4>
+    <p>{{ c.description }}</p>
+    <p><strong>Résultats publiés :</strong> {{ c.resultatsPublies ? 'Oui' : 'Non' }}</p>
+    <button *ngIf="!c.resultatsPublies" (click)="publierResultats(c.id)">Publier les résultats</button>
+    <button (click)="toggleEpreuves(c.id)">Épreuves</button>
+
+    <div class="section-epreuves" *ngIf="concoursOuvertEpreuves === c.id">
+      <ul>
+        <li *ngFor="let e of epreuvesParConcours[c.id]">{{ e.nom }} (coef {{ e.coefficient }})</li>
+      </ul>
+
+      <button *ngIf="!c.resultatsPublies" (click)="ouvrirFormulaireEpreuve(c.id)">+ Ajouter une épreuve</button>
+    </div>
+
+    <div class="overlay" *ngIf="concoursEpreuveOuverte === c.id" (click)="fermerFormulaireEpreuve()">
+      <div class="modal" (click)="$event.stopPropagation()">
+        <h3>Nouvelle épreuve</h3>
+
+        <div class="form-epreuve">
+          <input type="text" [(ngModel)]="nomEpreuve" placeholder="Nom de l'épreuve">
+          <input type="number" [(ngModel)]="coefficientEpreuve" placeholder="Coefficient" step="0.5">
+          <input type="number" [(ngModel)]="dureeEpreuve" placeholder="Durée (min)">
+
+          <div class="actions">
+            <button type="button" (click)="fermerFormulaireEpreuve()" class="btn-annuler">Annuler</button>
+            <button type="button" (click)="ajouterEpreuve(c.id)" class="btn-enregistrer">Ajouter</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

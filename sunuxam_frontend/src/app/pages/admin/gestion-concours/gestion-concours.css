@@ -1,0 +1,137 @@
+h2, h3 {
+  text-align: center;
+}
+
+.bouton-ajouter {
+  display: flex;
+  justify-content: flex-end;
+  margin: 20px 0;
+}
+
+.bouton-ajouter button {
+  padding: 10px 20px;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: white;
+  border-radius: 8px;
+  padding: 24px;
+  width: 350px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.modal h3 {
+  margin-top: 0;
+}
+
+.modal form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.modal div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.modal label {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.modal input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn-annuler, .btn-enregistrer {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-annuler {
+  background-color: #f3f4f6;
+  color: #333;
+}
+
+.btn-enregistrer {
+  background-color: #2563eb;
+  color: white;
+}
+
+.liste-concours {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  padding: 20px;
+}
+
+.carte-concours {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  width: 280px;
+}
+
+.carte-concours button {
+  margin-top: 8px;
+  margin-right: 6px;
+  padding: 8px 12px;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.section-epreuves {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #eee;
+}
+
+.section-epreuves ul {
+  margin: 0 0 10px;
+  padding-left: 18px;
+  font-size: 13px;
+}
+
+.form-epreuve {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-epreuve input {
+  padding: 6px;
+  font-size: 13px;
+}

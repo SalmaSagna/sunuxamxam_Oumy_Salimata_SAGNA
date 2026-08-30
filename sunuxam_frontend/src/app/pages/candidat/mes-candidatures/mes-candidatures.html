@@ -1,0 +1,12 @@
+<h2>Mes candidatures</h2>
+
+<div class="liste-candidatures">
+  <div class="carte-candidature" *ngFor="let c of candidatures">
+    <h3>{{ c.concours.titre }}</h3>
+    <p><strong>Statut :</strong> {{ c.statut }}</p>
+    <p><strong>Déposée le :</strong> {{ c.dateCandidature | date:'dd/MM/yyyy' }}</p>
+    <button (click)="voirResultat(c.id)">Voir le résultat</button>
+  </div>
+
+  <p *ngIf="candidatures.length === 0">Aucune candidature pour l'instant.</p>
+</div>

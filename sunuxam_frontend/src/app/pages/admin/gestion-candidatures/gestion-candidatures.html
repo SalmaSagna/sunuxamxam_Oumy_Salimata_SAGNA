@@ -1,0 +1,43 @@
+<h2>Gestion des candidatures</h2>
+
+<div class="selecteur">
+  <label>Choisir un concours</label>
+  <select [(ngModel)]="concoursSelectionne" (ngModelChange)="onConcoursChange()">
+    <option [ngValue]="null">-- Sélectionner --</option>
+    <option *ngFor="let c of concoursListe" [ngValue]="c.id">{{ c.titre }}</option>
+  </select>
+</div>
+
+<div class="liste-candidatures" *ngIf="concoursSelectionne">
+  <div class="carte-candidature" *ngFor="let c of candidatures" (click)="ouvrirCandidature(c)">
+    <h4>{{ c.candidat.nom }} {{ c.candidat.prenom }}</h4>
+    <p>{{ c.candidat.email }}</p>
+    <p class="statut-badge">{{ c.statut }}</p>
+  </div>
+
+  <p *ngIf="candidatures.length === 0">Aucune candidature pour ce concours.</p>
+</div>
+
+<div class="overlay" *ngIf="candidatureOuverte" (click)="fermerCandidature()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <h3>{{ candidatureOuverte.candidat.nom }} {{ candidatureOuverte.candidat.prenom }}</h3>
+    <p>{{ candidatureOuverte.candidat.email }}</p>
+
+    <div class="champ">
+      <label>Statut</label>
+      <select [(ngModel)]="statutEnCours">
+        <option *ngFor="let s of statuts" [value]="s">{{ s }}</option>
+      </select>
+    </div>
+
+    <div class="champ" *ngFor="let e of epreuves">
+      <label>{{ e.nom }}</label>
+      <input type="number" [(ngModel)]="notesEnCours[e.id]" placeholder="Note" step="0.5">
+    </div>
+
+    <div class="actions">
+      <button (click)="fermerCandidature()" class="btn-annuler">Annuler</button>
+      <button (click)="enregistrer()" class="btn-enregistrer">Enregistrer</button>
+    </div>
+  </div>
+</div>

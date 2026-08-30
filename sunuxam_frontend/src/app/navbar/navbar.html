@@ -1,0 +1,16 @@
+<nav>
+  <a routerLink="/concours">Concours</a>
+
+  <ng-container *ngIf="role === 'CANDIDAT'">
+    <a routerLink="/mes-candidatures">Mes candidatures</a>
+  </ng-container>
+
+  <ng-container *ngIf="role === 'ADMIN'">
+    <a routerLink="/admin/concours">Gérer concours</a>
+    <a routerLink="/admin/candidatures">Gérer candidatures</a>
+  </ng-container>
+
+  <button (click)="logout()">Déconnexion</button>
+</nav>
+
+<router-outlet></router-outlet>
