@@ -8,6 +8,6 @@ class SunuxamxamApplicationTests {
 
     @Test
     void contextLoads() {
+        // Vérifie que le contexte Spring démarre sans erreur
     }
-
 }
