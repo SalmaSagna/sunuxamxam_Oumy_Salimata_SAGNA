@@ -21,7 +21,7 @@ Réalisée dans le cadre de la validation de l'année de Licence 3 Génie Logici
 
 ## Installation du backend
 
-1. Créer la base de données PostgreSQL avec pgAdmin :
+1. Créer la base de données PostgreSQL avec pgAdmin (ou un autre client de votre choix) :
    ```sql
    CREATE DATABASE sunuxam;
    ```
@@ -62,7 +62,7 @@ Le cahier des charges impose que le compte gestionnaire (admin) soit créé dire
 
 2. Passer son rôle en `ADMIN` directement en base avec pgAdmin :
    ```sql
-   UPDATE utilisateur SET role = 'ADMIN' WHERE email = 'oumysali.sagna@gmail.com';
+   UPDATE utilisateur SET role = 'ADMIN' WHERE email = 'votre-email@example.com';
    ```
 
 3. Se reconnecter avec ce compte pour obtenir un token incluant le rôle `ADMIN`.
@@ -85,6 +85,10 @@ http://localhost:8081/swagger-ui.html
 - Gestion des candidatures : changement de statut, saisie des notes (admin)
 - Publication des résultats, avec protection empêchant toute modification après publication
 - Accès aux pages protégé par rôle (guards Angular + sécurité Spring Security côté backend)
+
+## Démo vidéo
+
+Une vidéo de démonstration du projet est disponible ici : [Voir la vidéo](https://drive.google.com/file/d/1nqa9UpwJEmBRzGsp2A0lZkYPWM-yJZMO/view?usp=sharing)
 
 ## Tests et CI/CD
 
