@@ -21,12 +21,12 @@ Réalisée dans le cadre de la validation de l'année de Licence 3 Génie Logici
 
 ## Installation du backend
 
-1. Créer la base de données PostgreSQL :
+1. Créer la base de données PostgreSQL avec pgAdmin :
    ```sql
    CREATE DATABASE sunuxam;
    ```
 
-2. Se placer dans le dossier `sunuxamxam/` et configurer `src/main/resources/application.properties` :
+2. Ouvrir le dossier `sunuxamxam/` dans IntelliJ IDEA et configurer `src/main/resources/application.properties` :
    ```properties
    spring.datasource.url=jdbc:postgresql://localhost:5432/sunuxam
    spring.datasource.username=postgres
@@ -35,14 +35,9 @@ Réalisée dans le cadre de la validation de l'année de Licence 3 Génie Logici
    server.port=8081
    ```
 
-3. Lancer l'application (via IntelliJ, bouton Run, ou en ligne de commande) :
-   ```bash
-   mvn spring-boot:run
-   ```
+3. Lancer l'application avec le bouton **Run** d'IntelliJ (sur la classe `SunuxamxamApplication`).
 
-4. L'API est accessible sur `http://localhost:8081`.
-
-Au premier démarrage, un jeu de données de test est automatiquement créé (voir section [Comptes de test](#comptes-de-test)).
+4. L'API est accessible sur `http://localhost:8081`. Les tables sont créées automatiquement au démarrage (`ddl-auto=update`).
 
 ## Installation du frontend
 
@@ -56,16 +51,23 @@ Au premier démarrage, un jeu de données de test est automatiquement créé (vo
 
 Le backend doit être démarré avant le frontend pour que les appels API fonctionnent.
 
-## Comptes de test
+## Créer un compte admin
 
-Un seeder crée automatiquement les comptes suivants au premier lancement du backend (base vide) :
+Le cahier des charges impose que le compte gestionnaire (admin) soit créé directement en base, sans auto-inscription. Procédure :
 
-| Rôle      | Email                     | Mot de passe   |
-|-----------|---------------------------|----------------|
-| Admin     | admin@sunuxam.sn          | admin123       |
-| Candidat  | awa.diop@example.com      | candidat123    |
+1. Inscrire un compte normalement via le frontend (page Inscription) ou via Postman :
+   ```
+   POST http://localhost:8081/api/auth/register
+   ```
 
-Deux concours et deux épreuves de test sont également créés.
+2. Passer son rôle en `ADMIN` directement en base avec pgAdmin :
+   ```sql
+   UPDATE utilisateur SET role = 'ADMIN' WHERE email = 'oumysali.sagna@gmail.com';
+   ```
+
+3. Se reconnecter avec ce compte pour obtenir un token incluant le rôle `ADMIN`.
+
+Les comptes candidats s'inscrivent normalement via le frontend, sans manipulation particulière.
 
 ## Documentation de l'API
 
@@ -86,9 +88,6 @@ http://localhost:8081/swagger-ui.html
 
 ## Tests et CI/CD
 
-Les tests backend se lancent avec :
-```bash
-mvn test
-```
+Les tests backend se lancent depuis IntelliJ : clic droit sur le dossier `src/test/java` (ou sur une classe de test) → **Run 'All Tests'**.
 
-Un workflow GitHub Actions (`.github/workflows/ci.yml`) exécute automatiquement les tests backend et le build frontend à chaque push sur la branche `main`.
+Un workflow GitHub Actions (`.github/workflows/ci.yml`) exécute automatiquement ces mêmes tests ainsi que le build frontend à chaque push sur la branche `main`.
