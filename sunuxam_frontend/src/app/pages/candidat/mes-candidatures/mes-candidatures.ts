@@ -14,6 +14,10 @@ import { AuthService } from '../../../services/auth';
 export class MesCandidatures implements OnInit {
   candidatures: any[] = [];
 
+  resultatOuvert: any = null;
+  notesResultat: any[] = [];
+  erreurResultat = '';
+
   constructor(
     private http: HttpClient,
     private authService: AuthService,
@@ -32,14 +36,30 @@ export class MesCandidatures implements OnInit {
     });
   }
 
-  voirResultat(id: number) {
-    this.http.get(`${environment.apiUrl}/candidatures/${id}/resultat`).subscribe({
+  voirResultat(c: any) {
+    this.erreurResultat = '';
+    this.notesResultat = [];
+
+    this.http.get(`${environment.apiUrl}/candidatures/${c.id}/resultat`).subscribe({
       next: (data: any) => {
-        alert(`Résultat : ${data.statut}`);
+        this.resultatOuvert = data;
+
+        this.http.get<any[]>(`${environment.apiUrl}/notes/candidature/${c.id}`).subscribe({
+          next: (notes) => {
+            this.notesResultat = notes;
+            this.cdr.detectChanges();
+          },
+        });
       },
       error: () => {
-        alert('Les résultats ne sont pas encore publiés');
+        this.erreurResultat = 'Les résultats ne sont pas encore publiés';
+        this.cdr.detectChanges();
       },
     });
+  }
+
+  fermerResultat() {
+    this.resultatOuvert = null;
+    this.erreurResultat = '';
   }
 }

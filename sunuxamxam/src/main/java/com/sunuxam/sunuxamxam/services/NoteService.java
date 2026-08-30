@@ -23,8 +23,17 @@ public class NoteService {
     }
 
     public Note saisir(Long candidatureId, Long epreuveId, Double valeur) {
+        if (valeur < 0 || valeur > 20) {
+            throw new RuntimeException("La note doit être comprise entre 0 et 20");
+        }
+
         Candidature candidature = candidatureRepository.findById(candidatureId)
                 .orElseThrow(() -> new RuntimeException("Candidature introuvable"));
+
+        if (Boolean.TRUE.equals(candidature.getConcours().getResultatsPublies())) {
+            throw new RuntimeException("Impossible de modifier une note après publication des résultats");
+        }
+
         Epreuve epreuve = epreuveRepository.findById(epreuveId)
                 .orElseThrow(() -> new RuntimeException("Epreuve introuvable"));
 

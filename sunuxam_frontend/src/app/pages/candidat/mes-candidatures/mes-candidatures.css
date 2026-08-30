@@ -37,3 +37,55 @@ button {
 button:hover {
   background-color: #1d4ed8;
 }
+
+.overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: white;
+  border-radius: 8px;
+  padding: 24px;
+  width: 320px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.modal h3 {
+  margin-top: 0;
+}
+
+.modal ul {
+  padding-left: 18px;
+}
+
+.info-attente {
+  color: #b91c1c;
+}
+
+.btn-fermer {
+  margin-top: 16px;
+  width: 100%;
+  padding: 10px;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-attente {
+  margin-top: 10px;
+  padding: 8px 14px;
+  background-color: #e5e7eb;
+  color: #6b7280;
+  border: none;
+  border-radius: 4px;
+  cursor: not-allowed;
+}

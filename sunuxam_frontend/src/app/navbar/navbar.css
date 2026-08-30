@@ -1,6 +1,5 @@
 nav {
   display: flex;
-  gap: 16px;
   align-items: center;
   padding: 12px 24px;
   background-color: #1d4ed8;
@@ -24,4 +23,25 @@ button {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+}
+
+.logo {
+  margin: 0;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.logo-sunu {
+  color: white;
+}
+
+.logo-xam {
+  color: #93c5fd;
+}
+
+.liens-centre {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
 }

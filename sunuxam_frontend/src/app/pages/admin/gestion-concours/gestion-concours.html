@@ -44,7 +44,8 @@
     <h4>{{ c.titre }}</h4>
     <p>{{ c.description }}</p>
     <p><strong>Résultats publiés :</strong> {{ c.resultatsPublies ? 'Oui' : 'Non' }}</p>
-    <button *ngIf="!c.resultatsPublies" (click)="publierResultats(c.id)">Publier les résultats</button>
+    <button *ngIf="!c.resultatsPublies && deliberationAtteinte(c)" (click)="publierResultats(c.id)">Publier les résultats</button>
+    <p *ngIf="!c.resultatsPublies && !deliberationAtteinte(c)" class="info-attente">Publication possible après le {{ c.dateDeliberation }}</p>
     <button (click)="toggleEpreuves(c.id)">Épreuves</button>
 
     <div class="section-epreuves" *ngIf="concoursOuvertEpreuves === c.id">

@@ -1,11 +1,19 @@
 <h2>Concours ouverts</h2>
 
 <div class="liste-concours">
-  <div class="carte-concours" *ngFor="let c of concoursListe">
-    <h3>{{ c.titre }}</h3>
-    <p>{{ c.description }}</p>
-    <p><strong>Date limite :</strong> {{ c.dateLimite }}</p>
-    <p><strong>Délibération :</strong> {{ c.dateDeliberation }}</p>
-    <button [routerLink]="['/concours', c.id, 'postuler']">Postuler</button>
-  </div>
+  <ng-container *ngFor="let c of concoursListe">
+    <div class="carte-concours" *ngIf="estOuvert(c)">
+      <h3>{{ c.titre }}</h3>
+      <p>{{ c.description }}</p>
+      <p><strong>Date limite :</strong> {{ c.dateLimite }}</p>
+      <p><strong>Délibération :</strong> {{ c.dateDeliberation }}</p>
+
+      <button
+        *ngIf="authService.getRole() === 'CANDIDAT' && !dejaPostule(c.id)"
+        [routerLink]="['/concours', c.id, 'postuler']">
+        Postuler
+      </button>
+      <p *ngIf="dejaPostule(c.id)" class="deja-postule">Déjà postulé</p>
+    </div>
+  </ng-container>
 </div>

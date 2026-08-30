@@ -29,6 +29,11 @@ export class GestionCandidatures implements OnInit {
     private cdr: ChangeDetectorRef,
   ) {}
 
+  get resultatsPublies(): boolean {
+    const concours = this.concoursListe.find(c => c.id === this.concoursSelectionne);
+    return concours ? concours.resultatsPublies : false;
+  }
+
   ngOnInit() {
     this.http.get<any[]>(`${environment.apiUrl}/concours`).subscribe({
       next: (data) => {
@@ -81,6 +86,14 @@ export class GestionCandidatures implements OnInit {
 
   enregistrer() {
     const candidatureId = this.candidatureOuverte.id;
+
+    for (const e of this.epreuves) {
+      const valeur = this.notesEnCours[e.id];
+      if (valeur !== undefined && (valeur < 0 || valeur > 20)) {
+        alert(`La note pour "${e.nom}" doit être comprise entre 0 et 20`);
+        return;
+      }
+    }
 
     this.http
       .put(

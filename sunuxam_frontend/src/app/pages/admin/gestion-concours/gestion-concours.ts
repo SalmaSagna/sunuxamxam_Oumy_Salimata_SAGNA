@@ -133,4 +133,9 @@ export class GestionConcours implements OnInit {
   fermerFormulaireEpreuve() {
     this.concoursEpreuveOuverte = null;
   }
+
+  deliberationAtteinte(concours: any): boolean {
+    const aujourdHui = new Date().toISOString().split('T')[0];
+    return aujourdHui >= concours.dateDeliberation;
+  }
 }

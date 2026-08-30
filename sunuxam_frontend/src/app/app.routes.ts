@@ -7,6 +7,8 @@ import { MesCandidatures } from './pages/candidat/mes-candidatures/mes-candidatu
 import { GestionConcours } from './pages/admin/gestion-concours/gestion-concours';
 import { GestionCandidatures } from './pages/admin/gestion-candidatures/gestion-candidatures';
 import { Navbar } from './navbar/navbar';
+import { candidatGuard } from './gards/candidat-guard';
+import { adminGuard } from './gards/admin-guard';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -16,11 +18,11 @@ export const routes: Routes = [
     component: Navbar,
     children: [
       { path: '', redirectTo: 'concours', pathMatch: 'full' },
-      { path: 'concours', component: ConcoursList },
-      { path: 'concours/:id/postuler', component: DepotCandidature },
-      { path: 'mes-candidatures', component: MesCandidatures },
-      { path: 'admin/concours', component: GestionConcours },
-      { path: 'admin/candidatures', component: GestionCandidatures },
+      { path: 'concours', component: ConcoursList, canActivate: [candidatGuard] },
+      { path: 'concours/:id/postuler', component: DepotCandidature, canActivate: [candidatGuard] },
+      { path: 'mes-candidatures', component: MesCandidatures, canActivate: [candidatGuard] },
+      { path: 'admin/concours', component: GestionConcours, canActivate: [adminGuard] },
+      { path: 'admin/candidatures', component: GestionCandidatures, canActivate: [adminGuard] },
     ],
   },
 ];

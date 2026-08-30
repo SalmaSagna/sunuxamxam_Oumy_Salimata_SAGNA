@@ -1,14 +1,17 @@
 <nav>
-  <a routerLink="/concours">Concours</a>
+  <h2 class="logo"><span class="logo-sunu">SUNU</span><span class="logo-xam">XAM</span></h2>
 
-  <ng-container *ngIf="role === 'CANDIDAT'">
-    <a routerLink="/mes-candidatures">Mes candidatures</a>
-  </ng-container>
+  <div class="liens-centre">
+    <ng-container *ngIf="role === 'CANDIDAT'">
+      <a routerLink="/concours">Concours</a>
+      <a routerLink="/mes-candidatures">Mes candidatures</a>
+    </ng-container>
 
-  <ng-container *ngIf="role === 'ADMIN'">
-    <a routerLink="/admin/concours">Gérer concours</a>
-    <a routerLink="/admin/candidatures">Gérer candidatures</a>
-  </ng-container>
+    <ng-container *ngIf="role === 'ADMIN'">
+      <a routerLink="/admin/concours">Gérer concours</a>
+      <a routerLink="/admin/candidatures">Gérer candidatures</a>
+    </ng-container>
+  </div>
 
   <button (click)="logout()">Déconnexion</button>
 </nav>

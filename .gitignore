@@ -1,0 +1,14 @@
+# Backend (Maven / Java)
+sunuxamxam/target/
+sunuxamxam/uploads/
+*.iml
+.idea/
+
+# Frontend (Angular)
+sunuxam_frontend/node_modules/
+sunuxam_frontend/.angular/
+sunuxam_frontend/dist/
+
+# Général
+*.log
+.DS_Store

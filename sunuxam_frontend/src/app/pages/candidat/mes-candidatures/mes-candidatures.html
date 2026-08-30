@@ -5,8 +5,34 @@
     <h3>{{ c.concours.titre }}</h3>
     <p><strong>Statut :</strong> {{ c.statut }}</p>
     <p><strong>Déposée le :</strong> {{ c.dateCandidature | date:'dd/MM/yyyy' }}</p>
-    <button (click)="voirResultat(c.id)">Voir le résultat</button>
+    <button *ngIf="!c.concours.resultatsPublies" disabled class="btn-attente">En attente de publication</button>
+    <button *ngIf="c.concours.resultatsPublies" (click)="voirResultat(c)">Voir le résultat</button>
   </div>
 
   <p *ngIf="candidatures.length === 0">Aucune candidature pour l'instant.</p>
+</div>
+
+<div class="overlay" *ngIf="resultatOuvert || erreurResultat" (click)="fermerResultat()">
+  <div class="modal" (click)="$event.stopPropagation()">
+
+    <ng-container *ngIf="erreurResultat">
+      <h3>Résultat</h3>
+      <p class="info-attente">{{ erreurResultat }}</p>
+    </ng-container>
+
+    <ng-container *ngIf="resultatOuvert">
+      <h3>{{ resultatOuvert.concours.titre }}</h3>
+      <p><strong>Statut final :</strong> {{ resultatOuvert.statut }}</p>
+
+      <div *ngIf="notesResultat.length > 0">
+        <p><strong>Notes :</strong></p>
+        <ul>
+          <li *ngFor="let n of notesResultat">{{ n.epreuve.nom }} : {{ n.valeur }} / 20</li>
+        </ul>
+      </div>
+      <p *ngIf="notesResultat.length === 0">Aucune note enregistrée.</p>
+    </ng-container>
+
+    <button (click)="fermerResultat()" class="btn-fermer">Fermer</button>
+  </div>
 </div>

@@ -23,21 +23,23 @@
     <h3>{{ candidatureOuverte.candidat.nom }} {{ candidatureOuverte.candidat.prenom }}</h3>
     <p>{{ candidatureOuverte.candidat.email }}</p>
 
+    <p *ngIf="resultatsPublies" class="info-cloture">Résultats déjà publiés — modification impossible.</p>
+
     <div class="champ">
       <label>Statut</label>
-      <select [(ngModel)]="statutEnCours">
+      <select [(ngModel)]="statutEnCours" [disabled]="resultatsPublies">
         <option *ngFor="let s of statuts" [value]="s">{{ s }}</option>
       </select>
     </div>
 
     <div class="champ" *ngFor="let e of epreuves">
       <label>{{ e.nom }}</label>
-      <input type="number" [(ngModel)]="notesEnCours[e.id]" placeholder="Note" step="0.5">
+      <input type="number" [(ngModel)]="notesEnCours[e.id]" placeholder="Note" step="0.5" min="0" max="20" [disabled]="resultatsPublies">
     </div>
 
     <div class="actions">
-      <button (click)="fermerCandidature()" class="btn-annuler">Annuler</button>
-      <button (click)="enregistrer()" class="btn-enregistrer">Enregistrer</button>
+      <button (click)="fermerCandidature()" class="btn-annuler">Fermer</button>
+      <button *ngIf="!resultatsPublies" (click)="enregistrer()" class="btn-enregistrer">Enregistrer</button>
     </div>
   </div>
 </div>

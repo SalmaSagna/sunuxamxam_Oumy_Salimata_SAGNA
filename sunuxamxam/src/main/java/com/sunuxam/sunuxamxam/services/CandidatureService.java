@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -35,6 +36,14 @@ public class CandidatureService {
                 .orElseThrow(() -> new RuntimeException("Candidat introuvable"));
         Concours concours = concoursRepository.findById(concoursId)
                 .orElseThrow(() -> new RuntimeException("Concours introuvable"));
+
+        if (LocalDate.now().isAfter(concours.getDateLimite())) {
+            throw new RuntimeException("La date limite de candidature est dépassée");
+        }
+
+        if (candidatureRepository.findByCandidatIdAndConcoursId(candidatId, concoursId).isPresent()) {
+            throw new RuntimeException("Vous avez déjà postulé à ce concours");
+        }
 
         Candidature c = new Candidature();
         c.setCandidat(candidat);
@@ -72,6 +81,11 @@ public class CandidatureService {
     public Candidature updateStatut(Long id, StatutCandidature statut) {
         Candidature c = candidatureRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Candidature introuvable"));
+
+        if (Boolean.TRUE.equals(c.getConcours().getResultatsPublies())) {
+            throw new RuntimeException("Impossible de modifier une candidature après publication des résultats");
+        }
+
         c.setStatut(statut);
         return candidatureRepository.save(c);
     }

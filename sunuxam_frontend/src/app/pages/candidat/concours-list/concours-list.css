@@ -23,3 +23,24 @@ h2 {
   margin-top: 0;
   color: #1d4ed8;
 }
+
+button {
+  margin-top: 10px;
+  padding: 8px 14px;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #1d4ed8;
+}
+
+.deja-postule {
+  font-size: 13px;
+  color: #6b7280;
+  font-style: italic;
+  margin-top: 10px;
+}
